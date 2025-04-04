@@ -24,6 +24,6 @@ WORKDIR /home/node/app
 EXPOSE 3000
 
 # CMD ["tail", "-f", "/dev/null"]
-
-CMD ["/home/node/app/start.sh"]
+# CMD ["/home/node/app/start.sh"]
  
+CMD ["node", "-v"]
