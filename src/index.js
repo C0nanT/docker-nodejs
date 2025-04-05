@@ -9,7 +9,7 @@ app.get("/", (req, res) => {
 app.get("/cep/:cep", async function (req, res) {
 	const address = `https://viacep.com.br/ws/${req.params.cep}/json/`;
 	const response = await fetch(address);
-	if(response.status !== 200) {
+	if (response.status !== 200) {
 		res.status(400).send({ error: "Invalid CEP" });
 		return;
 	}
@@ -19,7 +19,7 @@ app.get("/cep/:cep", async function (req, res) {
 
 app.get("/test-db", async function (req, res) {
 	const mysql = require("mysql2");
-	
+
 	const connection = mysql.createConnection({
 		host: process.env.DB_HOST,
 		user: process.env.DB_USER,
