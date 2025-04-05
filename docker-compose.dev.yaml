@@ -12,8 +12,18 @@ services:
     command: ["npm", "start"]
     env_file:
       - .env
+    depends_on:
+      db:
+        condition: service_healthy
+        # restart: true
   db:
     image: mysql:8.0.30-debian
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: node_base
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
