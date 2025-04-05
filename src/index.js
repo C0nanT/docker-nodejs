@@ -3,7 +3,7 @@ const app = express();
 const port = 3000;
 
 app.get("/", (req, res) => {
-	res.send("Hello World!");
+	res.send({online: true, message: "Hello World!"});
 });
 
 app.get("/cep/:cep", async function (req, res) {
@@ -11,6 +11,16 @@ app.get("/cep/:cep", async function (req, res) {
 	const response = await fetch(address);
 	if (response.status !== 200) {
 		res.status(400).send({ error: "Invalid CEP" });
+		return;
+	}
+	const data = await response.json();
+	res.send(data);
+});
+
+app.get("/external-api", async function (req, res) {
+	const response = await fetch("http://external-api:9000/products");
+	if (response.status !== 200) {
+		res.status(500).send({ error: "Error fetching external API" });
 		return;
 	}
 	const data = await response.json();
@@ -28,10 +38,10 @@ app.get("/test-db", async function (req, res) {
 	});
 	connection.connect((err) => {
 		if (err) {
-			res.status(500).send(err);
+			res.status(500).send({connected: false, error: err});
 			return;
 		}
-		res.send("Connected to MySQL database");
+		res.send({connected: true, message: "Connected to database"});
 	});
 });
 
