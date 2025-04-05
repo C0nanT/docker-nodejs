@@ -6,9 +6,13 @@ app.get("/", (req, res) => {
 	res.send("Hello World!");
 });
 
-app.get("/external-api", async function (req, res) {
-	const address = "http://external-api:90000/products";
+app.get("/cep/:cep", async function (req, res) {
+	const address = `https://viacep.com.br/ws/${req.params.cep}/json/`;
 	const response = await fetch(address);
+	if(response.status !== 200) {
+		res.status(404).send("CEP not found");
+		return;
+	}
 	const data = await response.json();
 	res.send(data);
 });

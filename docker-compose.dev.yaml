@@ -5,6 +5,9 @@ services:
       dockerfile: Dockerfile.dev
     volumes:
       - .:/home/node/app
+    ports:
+      - "3000:3000"
+    command: ["npm", "start"]
   db:
     image: mysql:8.0.30-debian
     environment:
