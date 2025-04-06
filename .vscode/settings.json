@@ -1,4 +1,5 @@
 {
+    "terminal.integrated.defaultProfile.linux": "dev",
     "terminal.integrated.profiles.linux": {
         "dev":{
             "path": "bash",
