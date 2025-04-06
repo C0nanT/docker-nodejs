@@ -18,6 +18,7 @@ app.get("/cep/:cep", async function (req, res) {
 });
 
 app.get("/external-api", async function (req, res) {
+	// const response = await fetch("http://host.docker.internal:9000/products");
 	const response = await fetch("http://external-api:9000/products");
 	if (response.status !== 200) {
 		res.status(500).send({ error: "Error fetching external API" });
