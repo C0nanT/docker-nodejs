@@ -1,0 +1,27 @@
+include:
+  - ./external-api/docker-compose.external-api.yaml
+
+services:
+  web1:
+    extends:
+      file: docker-compose.common.yaml
+      service: web
+    ports:
+      - "3000:3000"
+    depends_on:
+      db:
+        condition: service_healthy
+  db:
+    image: mysql:8.0.30-debian
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: node_base
+    tmpfs:
+      - /var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+  
