@@ -3,7 +3,7 @@ const app = express();
 const port = 3000;
 
 app.get("/", (req, res) => {
-	res.send({online: true, message: "Hello World!"});
+	res.send({online: true, message: "Hello World!", branch: "not main"});
 });
 
 app.get("/cep/:cep", async function (req, res) {
